@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
+
 const mode = process.env.NODE_ENV || 'development';
 const devMode = mode === 'development';
 const target = devMode ? 'web' : 'browserslist';
@@ -14,6 +15,10 @@ module.exports = {
   devtool,
   devServer: {
     port: 3000,
+    historyApiFallback: true,
+    static: {
+      directory: path.join(__dirname, "/"),
+    },
     open: true,
     hot: true,
   },
@@ -49,6 +54,7 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
+            
           },
         ],
       },
@@ -65,7 +71,8 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                plugins: [require('postcss-preset-env')],
+                plugins: [
+                  require('postcss-preset-env')],
               },
             },
           },
